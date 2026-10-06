@@ -45,7 +45,10 @@ function Dashboard() {
   return (
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '900px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>Roho Safi Dashboard</h1>
+        <div>
+          <h1>Roho Safi Dashboard</h1>
+          <a href="/products">Manage Products →</a>
+        </div>
         <div>
           <span style={{ marginRight: '1rem' }}>{user?.name} ({user?.role})</span>
           <button onClick={handleLogout}>Log Out</button>
