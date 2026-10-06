@@ -17,6 +17,8 @@ const pool = new Pool({
 
 const authRoutes = require('./routes/auth');
 const inventoryRoutes = require('./routes/inventory');
+const budgetRoutes = require('./routes/budget');
+const auditRoutes = require('./routes/audit');
 
 // Test route
 app.get('/api/health', async (req, res) => {
@@ -31,8 +33,10 @@ app.get('/api/health', async (req, res) => {
 
 app.use('/api/auth', authRoutes(pool));
 app.use('/api/products', inventoryRoutes(pool));
+app.use('/api/budget', budgetRoutes(pool));
+app.use('/api/audit', auditRoutes(pool));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT} - v2 with products`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

@@ -1,30 +1,37 @@
-import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+
+function PrivateRoute({ children }) {
+  const { token } = useAuth();
+  return token ? children : <Navigate to="/login" />;
+}
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route path="*" element={<Navigate to="/dashboard" />} />
+    </Routes>
+  );
+}
 
 function App() {
-  const [health, setHealth] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch('http://localhost:5000/api/health')
-      .then((res) => res.json())
-      .then((data) => setHealth(data))
-      .catch((err) => setError(err.message));
-  }, []);
-
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>Roho Safi System</h1>
-      <h2>Backend Connection Test</h2>
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-      {health ? (
-        <div>
-          <p>Status: {health.status}</p>
-          <p>Database time: {health.dbTime}</p>
-        </div>
-      ) : (
-        !error && <p>Loading...</p>
-      )}
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
