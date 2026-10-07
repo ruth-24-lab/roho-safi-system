@@ -47,7 +47,9 @@ function Dashboard() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h1>Roho Safi Dashboard</h1>
-          <a href="/products">Manage Products →</a>
+          <a href="/products" style={{ marginRight: '1rem' }}>Manage Products →</a>
+<a href="/budget" style={{ marginRight: '1rem' }}>Manage Budget →</a>
+{user?.role === 'Admin' && <a href="/audit">Audit Log →</a>}
         </div>
         <div>
           <span style={{ marginRight: '1rem' }}>{user?.name} ({user?.role})</span>

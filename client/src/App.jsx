@@ -3,6 +3,8 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
+import Budget from './pages/Budget';
+import AuditLog from './pages/AuditLog';
 
 function PrivateRoute({ children }) {
   const { token } = useAuth();
@@ -26,6 +28,22 @@ function AppRoutes() {
         element={
           <PrivateRoute>
             <Products />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/budget"
+        element={
+          <PrivateRoute>
+            <Budget />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/audit"
+        element={
+          <PrivateRoute>
+            <AuditLog />
           </PrivateRoute>
         }
       />
