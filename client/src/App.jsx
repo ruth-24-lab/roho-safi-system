@@ -6,6 +6,7 @@ import Products from './pages/Products';
 import Budget from './pages/Budget';
 import AuditLog from './pages/AuditLog';
 import Reports from './pages/Reports';
+import Users from './pages/Users';
 
 function PrivateRoute({ children }) {
   const { token } = useAuth();
@@ -16,46 +17,12 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route
-        path="/dashboard"
-        element={
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/products"
-        element={
-          <PrivateRoute>
-            <Products />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/budget"
-        element={
-          <PrivateRoute>
-            <Budget />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/audit"
-        element={
-          <PrivateRoute>
-            <AuditLog />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/reports"
-        element={
-          <PrivateRoute>
-            <Reports />
-          </PrivateRoute>
-        }
-      />
+      <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+      <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>} />
+      <Route path="/budget" element={<PrivateRoute><Budget /></PrivateRoute>} />
+      <Route path="/reports" element={<PrivateRoute><Reports /></PrivateRoute>} />
+      <Route path="/audit" element={<PrivateRoute><AuditLog /></PrivateRoute>} />
+      <Route path="/users" element={<PrivateRoute><Users /></PrivateRoute>} />
       <Route path="*" element={<Navigate to="/dashboard" />} />
     </Routes>
   );

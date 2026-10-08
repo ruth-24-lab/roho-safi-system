@@ -20,6 +20,7 @@ function Layout({ children }) {
           <Link to="/budget">Budget</Link>
           <Link to="/reports">Reports</Link>
           {user?.role === 'Admin' && <Link to="/audit">Audit Log</Link>}
+          {user?.role === 'Admin' && <Link to="/users">Users</Link>}
         </div>
         <div className="navbar-user">
           <span>{user?.name} ({user?.role})</span>

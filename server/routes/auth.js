@@ -46,7 +46,7 @@ module.exports = (pool) => {
     try {
       const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
       const user = result.rows[0];
-      if (!user || !(await bcrypt.compare(password, user.password_hash))) {
+      if (!user || !user.is_active || !(await bcrypt.compare(password, user.password_hash))) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
 
