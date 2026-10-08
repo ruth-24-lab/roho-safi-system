@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
+import Layout from '../components/Layout';
 
 function Products() {
   const { token, user } = useAuth();
@@ -76,49 +76,45 @@ function Products() {
   };
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '900px', margin: '0 auto' }}>
-      <Link to="/dashboard">← Back to Dashboard</Link>
+    <Layout>
       <h1>Products</h1>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
 
       {canManage && (
-        <form onSubmit={handleSubmit} style={{ marginBottom: '2rem', border: '1px solid #ccc', padding: '1rem', borderRadius: '8px' }}>
+        <form onSubmit={handleSubmit} className="card">
           <h3>{editingId ? 'Edit Product' : 'Add Product'}</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
-            <input name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
-            <input name="category" placeholder="Category" value={form.category} onChange={handleChange} />
-            <input name="quantity" type="number" placeholder="Quantity" value={form.quantity} onChange={handleChange} required />
-            <input name="reorder_level" type="number" placeholder="Reorder Level" value={form.reorder_level} onChange={handleChange} required />
-            <input name="unit_price" type="number" step="0.01" placeholder="Unit Price" value={form.unit_price} onChange={handleChange} />
-            <input name="supplier" placeholder="Supplier" value={form.supplier} onChange={handleChange} />
+          <input name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
+          <input name="category" placeholder="Category" value={form.category} onChange={handleChange} />
+          <input name="quantity" type="number" placeholder="Quantity" value={form.quantity} onChange={handleChange} required />
+          <input name="reorder_level" type="number" placeholder="Reorder Level" value={form.reorder_level} onChange={handleChange} required />
+          <input name="unit_price" type="number" step="0.01" placeholder="Unit Price" value={form.unit_price} onChange={handleChange} />
+          <input name="supplier" placeholder="Supplier" value={form.supplier} onChange={handleChange} />
+          <div>
+            <button type="submit">{editingId ? 'Update Product' : 'Add Product'}</button>
+            {editingId && (
+              <button type="button" onClick={resetForm} className="btn-secondary" style={{ marginLeft: '0.5rem' }}>
+                Cancel
+              </button>
+            )}
           </div>
-          <button type="submit" style={{ marginTop: '1rem' }}>
-            {editingId ? 'Update Product' : 'Add Product'}
-          </button>
-          {editingId && (
-            <button type="button" onClick={resetForm} style={{ marginTop: '1rem', marginLeft: '0.5rem' }}>
-              Cancel
-            </button>
-          )}
         </form>
       )}
 
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <table>
         <thead>
           <tr>
-            <th style={{ textAlign: 'left', borderBottom: '1px solid #ccc' }}>Name</th>
-            <th style={{ textAlign: 'left', borderBottom: '1px solid #ccc' }}>Category</th>
-            <th style={{ textAlign: 'right', borderBottom: '1px solid #ccc' }}>Qty</th>
-            <th style={{ textAlign: 'right', borderBottom: '1px solid #ccc' }}>Reorder</th>
-            <th style={{ textAlign: 'right', borderBottom: '1px solid #ccc' }}>Price</th>
-            <th style={{ textAlign: 'left', borderBottom: '1px solid #ccc' }}>Supplier</th>
-            {canManage && <th style={{ borderBottom: '1px solid #ccc' }}>Actions</th>}
+            <th>Name</th>
+            <th>Category</th>
+            <th style={{ textAlign: 'right' }}>Qty</th>
+            <th style={{ textAlign: 'right' }}>Reorder</th>
+            <th style={{ textAlign: 'right' }}>Price</th>
+            <th>Supplier</th>
+            {canManage && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
           {products.map((p) => (
-            <tr key={p.id} style={{ color: p.quantity <= p.reorder_level ? 'red' : 'inherit' }}>
+            <tr key={p.id} className={p.quantity <= p.reorder_level ? 'row-alert' : ''}>
               <td>{p.name}</td>
               <td>{p.category}</td>
               <td style={{ textAlign: 'right' }}>{p.quantity}</td>
@@ -127,9 +123,9 @@ function Products() {
               <td>{p.supplier}</td>
               {canManage && (
                 <td>
-                  <button onClick={() => handleEdit(p)}>Edit</button>
+                  <button onClick={() => handleEdit(p)} className="btn-secondary">Edit</button>
                   {user?.role === 'Admin' && (
-                    <button onClick={() => handleDelete(p.id)} style={{ marginLeft: '0.5rem' }}>
+                    <button onClick={() => handleDelete(p.id)} className="btn-danger" style={{ marginLeft: '0.5rem' }}>
                       Delete
                     </button>
                   )}
@@ -139,7 +135,7 @@ function Products() {
           ))}
         </tbody>
       </table>
-    </div>
+    </Layout>
   );
 }
 

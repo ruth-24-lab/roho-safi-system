@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Budget from './pages/Budget';
 import AuditLog from './pages/AuditLog';
+import Reports from './pages/Reports';
 
 function PrivateRoute({ children }) {
   const { token } = useAuth();
@@ -44,6 +45,14 @@ function AppRoutes() {
         element={
           <PrivateRoute>
             <AuditLog />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/reports"
+        element={
+          <PrivateRoute>
+            <Reports />
           </PrivateRoute>
         }
       />
