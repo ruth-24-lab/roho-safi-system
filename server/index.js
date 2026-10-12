@@ -20,25 +20,16 @@ const inventoryRoutes = require('./routes/inventory');
 const budgetRoutes = require('./routes/budget');
 const auditRoutes = require('./routes/audit');
 const userRoutes = require('./routes/users');
+const stockRoutes = require('./routes/stock');
 
-// Test route
-app.get('/api/health', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT NOW()');
-    res.json({ status: 'ok', dbTime: result.rows[0].now });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ status: 'error', message: err.message });
-  }
-});
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 app.use('/api/auth', authRoutes(pool));
 app.use('/api/products', inventoryRoutes(pool));
 app.use('/api/budget', budgetRoutes(pool));
 app.use('/api/audit', auditRoutes(pool));
 app.use('/api/users', userRoutes(pool));
+app.use('/api/stock', stockRoutes(pool));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

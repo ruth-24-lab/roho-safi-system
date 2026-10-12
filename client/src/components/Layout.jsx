@@ -17,6 +17,7 @@ function Layout({ children }) {
         <div className="navbar-links">
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/products">Products</Link>
+          <Link to="/stock">Stock</Link>
           <Link to="/budget">Budget</Link>
           <Link to="/reports">Reports</Link>
           {user?.role === 'Admin' && <Link to="/audit">Audit Log</Link>}
