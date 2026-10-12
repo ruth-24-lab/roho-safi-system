@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Stock from './pages/Stock';
+import Suppliers from './pages/Suppliers';
 import Budget from './pages/Budget';
 import Reports from './pages/Reports';
 import AuditLog from './pages/AuditLog';
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/products" element={<PrivateRoute><Products /></PrivateRoute>} />
           <Route path="/stock" element={<PrivateRoute><Stock /></PrivateRoute>} />
+          <Route path="/suppliers" element={<PrivateRoute><Suppliers /></PrivateRoute>} />
           <Route path="/budget" element={<PrivateRoute><Budget /></PrivateRoute>} />
           <Route path="/reports" element={<PrivateRoute><Reports /></PrivateRoute>} />
           <Route path="/audit" element={<PrivateRoute><AuditLog /></PrivateRoute>} />

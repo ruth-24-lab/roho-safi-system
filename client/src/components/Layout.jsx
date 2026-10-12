@@ -18,6 +18,7 @@ function Layout({ children }) {
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/products">Products</Link>
           <Link to="/stock">Stock</Link>
+          <Link to="/suppliers">Suppliers</Link>
           <Link to="/budget">Budget</Link>
           <Link to="/reports">Reports</Link>
           {user?.role === 'Admin' && <Link to="/audit">Audit Log</Link>}

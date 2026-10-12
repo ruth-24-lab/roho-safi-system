@@ -21,6 +21,7 @@ const budgetRoutes = require('./routes/budget');
 const auditRoutes = require('./routes/audit');
 const userRoutes = require('./routes/users');
 const stockRoutes = require('./routes/stock');
+const supplierRoutes = require('./routes/suppliers');
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
@@ -30,6 +31,7 @@ app.use('/api/budget', budgetRoutes(pool));
 app.use('/api/audit', auditRoutes(pool));
 app.use('/api/users', userRoutes(pool));
 app.use('/api/stock', stockRoutes(pool));
+app.use('/api/suppliers', supplierRoutes(pool));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
